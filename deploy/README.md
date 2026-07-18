@@ -68,6 +68,36 @@ log'ları journald'de toplar ve ekstra global npm paketi gerektirmez.
 Aynı sunucuda birden çok Node uygulaması yönetecek ve sık sık
 sıfır-kesinti reload yapacaksan PM2 tercih edilebilir; bu projede gerek yok.
 
+## Güvenlik
+
+Nginx konfigürasyonu şunları içerir: `server_tokens off`, sadece GET/HEAD/OPTIONS,
+gizli dosya (`/.git` vb.) erişim engeli, `X-Content-Type-Options`,
+`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` ve `Content-Security-Policy`
+başlıkları. HTTPS kurulduktan sonra config içindeki yorumlu **HSTS** satırını
+certbot'un oluşturduğu 443 bloğuna taşıyın.
+
+Bağımlılık tarafında `npm audit` temizdir (Next'in içindeki eski postcss,
+package.json `overrides` ile güvenli sürüme sabitlendi). Güncel tutmak için
+arada bir: `npm audit` ve `npm outdated`.
+
+Sunucu geneli için önerilen (bir kez, tüm siteleri korur):
+
+```bash
+# Guvenlik duvari: sadece SSH + web
+ufw allow OpenSSH && ufw allow "Nginx Full" && ufw enable
+
+# SSH brute-force korumasi
+apt install -y fail2ban && systemctl enable --now fail2ban
+
+# Guvenlik yamalarini otomatik kur
+apt install -y unattended-upgrades
+dpkg-reconfigure -plow unattended-upgrades
+```
+
+SSH'ta şifreyle giriş açıksa anahtar kurulumundan sonra kapatmak en etkili
+adımdır (`/etc/ssh/sshd_config` → `PasswordAuthentication no`) — ama önce
+anahtarla girebildiğinden emin olmadan yapma, kilitli kalırsın.
+
 ## Diğer öneriler
 
 - **En kolay yol:** Bu repo GitHub'a atılıp **Vercel**'e bağlanırsa sunucu,
