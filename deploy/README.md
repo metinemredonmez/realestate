@@ -38,7 +38,7 @@ Alan adının DNS'i sunucuyu gösterdikten sonra:
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
-sudo certbot --nginx -d efendioglugroup.com -d www.efendioglugroup.com
+sudo certbot --nginx -d efendioglugroup.com.tr -d www.efendioglugroup.com.tr
 ```
 
 Sertifika otomatik yenilenir; başka bir şey gerekmez.
