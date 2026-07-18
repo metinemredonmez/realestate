@@ -1,0 +1,31 @@
+# /etc/systemd/system/efendioglu.service
+# SADECE Node.js calistirmak gerekirse kullanilir (SSR / API route eklenince).
+# Statik export kullaniliyorsa bu dosyaya gerek YOKTUR; Nginx tek basina yeter.
+#
+# Kurulum:
+#   sudo cp deploy/efendioglu.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now efendioglu
+# Loglar: journalctl -u efendioglu -f
+
+[Unit]
+Description=Efendioglu Group - Next.js
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/efendioglu
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+
+# Sertlestirme
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
