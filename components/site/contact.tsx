@@ -13,8 +13,8 @@ const kanallar = [
     title: "E-POSTA",
     lines: [
       {
-        text: "info@efendioglugroup.com",
-        href: "mailto:info@efendioglugroup.com",
+        text: "insaat.efendioglu@gmail.com",
+        href: "mailto:insaat.efendioglu@gmail.com",
       },
     ],
   },
