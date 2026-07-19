@@ -5,7 +5,7 @@ import { CheckCircle2, Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-const ALICI = "insaat.efendioglu@gmail.com";
+const ALICI = "efendiogluconstruction@gmail.com";
 const ENDPOINT = `https://formsubmit.co/ajax/${ALICI}`;
 
 const inputStyles =
